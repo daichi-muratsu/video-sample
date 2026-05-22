@@ -3,12 +3,13 @@ package com.example.videosample.data.repository
 import com.example.videosample.domain.model.Video
 import com.example.videosample.domain.repository.VideoRepository
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
 /**
  * 開発初期フェーズ用のモックリポジトリ。
  * API 実装を待たずに UI 構築を進めるため、固定の仮データを返却する。
  */
-class MockVideoRepositoryImpl : VideoRepository {
+class MockVideoRepositoryImpl @Inject constructor() : VideoRepository {
 
     /**
      * [VIDEO_COUNT] 件の仮の動画リストを取得する。
