@@ -57,7 +57,7 @@ class MockVideoRepositoryImpl @Inject constructor() : VideoRepository {
             id = id,
             title = "Video $id",
             description = "Description for Video $id. This is a placeholder for testing UI layout.",
-            thumbnailUrl = "",
+            thumbnailUrl = "https://picsum.photos/seed/$id/640/360", // UI開発用のダミー画像（スクロール時に画像が変わらないよう動画IDをシード値に設定）
             videoUrl = ""
         )
     }
