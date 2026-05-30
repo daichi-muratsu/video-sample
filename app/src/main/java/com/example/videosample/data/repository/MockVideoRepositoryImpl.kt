@@ -58,12 +58,15 @@ class MockVideoRepositoryImpl @Inject constructor() : VideoRepository {
             title = "Video $id",
             description = "Description for Video $id. This is a placeholder for testing UI layout.",
             thumbnailUrl = "https://picsum.photos/seed/$id/640/360", // UI開発用のダミー画像（スクロール時に画像が変わらないよう動画IDをシード値に設定）
-            videoUrl = ""
+            videoUrl = TEST_VIDEO_URL,
         )
     }
 
     companion object {
         private const val VIDEO_COUNT = 10
         private const val NETWORK_DELAY_MS = 1000L
+
+        // 再生テスト用のHLS（ストリーミング形式）動画URL
+        private const val TEST_VIDEO_URL = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
     }
 }
