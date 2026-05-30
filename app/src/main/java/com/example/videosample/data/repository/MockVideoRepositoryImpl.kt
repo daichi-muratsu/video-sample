@@ -43,6 +43,21 @@ class MockVideoRepositoryImpl @Inject constructor() : VideoRepository {
     }
 
     /**
+     * 指定された ID の動画に対する関連動画リストを取得する。
+     * モック実装のため、[VIDEO_COUNT] 件の仮データから指定された ID の動画を除外したリストを返却する。
+     *
+     * @param id 基準となる動画のID
+     * @return 指定された動画を除いた仮の関連動画リスト
+     */
+    override suspend fun getRelatedVideos(id: String): List<Video> {
+        simulateNetworkDelay()
+
+        return (1..VIDEO_COUNT)
+            .map { createMockVideo(it.toString()) }
+            .filter { it.id != id }
+    }
+
+    /**
      * ネットワーク通信をシミュレートするための遅延処理
      */
     private suspend fun simulateNetworkDelay() {
