@@ -43,6 +43,21 @@ class MockVideoRepositoryImpl @Inject constructor() : VideoRepository {
     }
 
     /**
+     * 指定された ID の動画に対する関連動画リストを取得する。
+     * モック実装のため、[VIDEO_COUNT] 件の仮データから指定された ID の動画を除外したリストを返却する。
+     *
+     * @param id 基準となる動画のID
+     * @return 指定された動画を除いた仮の関連動画リスト
+     */
+    override suspend fun getRelatedVideos(id: String): List<Video> {
+        simulateNetworkDelay()
+
+        return (1..VIDEO_COUNT)
+            .map { createMockVideo(it.toString()) }
+            .filter { it.id != id }
+    }
+
+    /**
      * ネットワーク通信をシミュレートするための遅延処理
      */
     private suspend fun simulateNetworkDelay() {
@@ -58,12 +73,15 @@ class MockVideoRepositoryImpl @Inject constructor() : VideoRepository {
             title = "Video $id",
             description = "Description for Video $id. This is a placeholder for testing UI layout.",
             thumbnailUrl = "https://picsum.photos/seed/$id/640/360", // UI開発用のダミー画像（スクロール時に画像が変わらないよう動画IDをシード値に設定）
-            videoUrl = ""
+            videoUrl = TEST_VIDEO_URL,
         )
     }
 
     companion object {
         private const val VIDEO_COUNT = 10
         private const val NETWORK_DELAY_MS = 1000L
+
+        // 再生テスト用のHLS（ストリーミング形式）動画URL
+        private const val TEST_VIDEO_URL = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
     }
 }
