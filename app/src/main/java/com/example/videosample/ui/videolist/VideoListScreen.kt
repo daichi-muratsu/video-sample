@@ -15,12 +15,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.videosample.ui.videolist.components.VideoCard
 
 @Composable
 fun VideoListScreen(
-    viewModel: VideoListViewModel,
+    onClick: (String) -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: VideoListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -40,7 +42,7 @@ fun VideoListScreen(
                     items(state.videos) { video ->
                         VideoCard(
                             video = video,
-                            onClick = {},
+                            onClick = { onClick(video.id) },
                         )
                     }
                 }
